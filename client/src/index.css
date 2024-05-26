@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* 3 dong tren dung de cau hinh tailwind chay duoc trong du an */
+
+html,
+css {
+  height: 100%;
+}
