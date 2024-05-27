@@ -5,6 +5,9 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily:{
+      agbalumo: ['Agbalumo'],
+    },
     extend: {
       backgroundColor: {
         'main-50': '#EDEFF6',
@@ -17,6 +20,7 @@ export default {
         'main-700': '#2C3A61',
         'main-800': '#1E2640',
         'main-900': '#0F1320',
+        'overlay-70': 'rgba(0,0,0,0.7)',
       },
       colors: {
         'main-50': '#EDEFF6',
@@ -30,7 +34,7 @@ export default {
         'main-800': '#1E2640',
         'main-900': '#0F1320',
       },
-      width:{
+      width: {
         main: '1320px'
       }
     },

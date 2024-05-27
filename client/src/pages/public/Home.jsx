@@ -5,7 +5,7 @@ const Home = () => {
         <div className='bg-gray-500 w-full'>
             <div className='w-full h-fit relative'>
                 <img
-                    className=''
+                    className='w-full h-[750px] object-cover'
                     alt='banner'
                     src="/banner.png"
                 />

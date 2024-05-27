@@ -1,18 +1,22 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import path from './utils/path'
-import { 
-    Home, 
+import {
+    Home,
     PublicLayout,
     AboutUs,
     OurAgents,
     Properties,
     Search
 } from './pages/public'
+import { Modal } from './components'
+import { useAppStore } from './store/useAppStore'
 
 const App = () => {
+    const { isShowModal } = useAppStore()
     return (
-        <div>
+        <>
+            {isShowModal && <Modal />}
             <Routes>
                 <Route path={path.PUBLIC_LAYOUT} element={<PublicLayout />}>
                     <Route path={path.HOME} element={<Home />} />
@@ -22,7 +26,7 @@ const App = () => {
                     <Route path={path.SEARCH} element={<Search />} />
                 </Route>
             </Routes>
-        </div>
+        </>
     )
 }
 
