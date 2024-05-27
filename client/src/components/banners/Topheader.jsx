@@ -1,10 +1,18 @@
 import React from 'react'
 import { MdOutlineMail } from "react-icons/md";
 import { FaFacebook, FaInstagram, FaPhone, FaYoutube } from "react-icons/fa";
+import { twMerge } from 'tailwind-merge';
+import clsx from 'clsx';
+import withRouter from '~/hocs/withRouter';
 
-const Topheader = () => {
+const Topheader = ({location}) => {
     return (
-        <div className='border-b border-main-400 h-[85px] bg-transparent w-full fixed top-0 z-50 flex items-center justify-between px-[100px] py-[26px] text-white'>
+        <div
+            className={
+                twMerge(
+                    clsx(
+                        'border-b border-main-400 h-[85px] bg-transparent w-full fixed top-0 z-50 flex items-center justify-between px-[100px] py-[26px] text-white',
+                        location.pathname !== '/' && 'bg-main-700'))}>
             <span className='flex items-center gap-2'>
                 <MdOutlineMail />
                 <span>
@@ -31,4 +39,4 @@ const Topheader = () => {
     )
 }
 
-export default Topheader
+export default withRouter(Topheader)
