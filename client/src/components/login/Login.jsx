@@ -35,8 +35,8 @@ const Login = () => {
                         id='name'
                         inputClassname='rounded-md'
                         placeholder='Enter your full name here'
-                        validate={{ require: 'This field must not is empty' }}
                         errors={errors}
+                        validate={{ required: 'This field must not is empty' }}
                     />}
 
                     <InputForm
@@ -45,8 +45,8 @@ const Login = () => {
                         id='phone'
                         inputClassname='rounded-md'
                         placeholder='Enter your phone number here'
-                        validate={{ require: 'This field must not is empty' }}
                         errors={errors}
+                        validate={{ required: 'This field must not is empty' }}
                     />
 
                     <InputForm
@@ -56,8 +56,8 @@ const Login = () => {
                         inputClassname='rounded-md'
                         placeholder='Enter your password here'
                         type='password'
-                        validate={{ require: 'This field must not is empty' }}
                         errors={errors}
+                        validate={{ required: 'This field must not is empty' }}
                     />
                 </form>
                 <Button

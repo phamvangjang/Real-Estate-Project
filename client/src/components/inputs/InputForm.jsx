@@ -28,7 +28,7 @@ const InputForm = ({
                 {...register(id, validate)}
                 placeholder={placeholder}
             />
-            {errors[id] && <small className='text-red-500 italic'>{errors[id]?.messages}</small>}
+            {errors[id] && <small className='text-red-500 italic'>{errors[id]?.message}</small>}
         </div>
     )
 }
