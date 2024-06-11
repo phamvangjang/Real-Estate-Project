@@ -3,5 +3,17 @@ POST http://localhost:5000/api/auth/register
 Content-Type: application/json
 
 {
-    "phone" : "123"
+    "name": "vangiang",
+    "phone" : "01472583487",
+    "password": "123456",
+    "role": "USE"
+}
+
+### signin
+POST http://localhost:5000/api/auth/signin
+Content-Type: application/json
+
+{
+    "phone" : "0147258369",
+    "password": "123456"
 }
