@@ -1,16 +1,45 @@
 import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
-import { Button, InputForm } from '..'
-import { useForm } from 'react-hook-form'
+import { Button, InputForm, InputRadio } from '..'
+import { set, useForm } from 'react-hook-form'
+import { apiRegister, apiSignIn } from '~/apis/auth'
+import Swal from 'sweetalert2'
+import { toast } from 'react-toastify'
+import { useAppStore } from '~/store/useAppStore'
 
 const Login = () => {
     const [variant, setVariant] = useState('LOGIN')
+    const { setModal } = useAppStore()
     const { register, formState: { errors }, handleSubmit, reset } = useForm()
-    useEffect(()=>{
+    useEffect(() => {
         reset()
-    },[variant])
-    const onSubmit = (data) => {
-        console.log(data)
+    }, [variant])
+    const onSubmit = async (data) => {
+        if (variant === 'REGISTER') {
+            const response = await apiRegister(data)
+            if (response.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Congratulations',
+                    text: response.mes,
+                    showConfirmButton: true,
+                    confirmButtonText: 'Go sign in',
+                }).then(({ isConfirmed }) => {
+                    if (isConfirmed) setVariant('LOGIN')
+                })
+            } else {
+                toast.error(response.mes)
+            }
+        }
+        if (variant === 'LOGIN') {
+            const { name, role, ...payload } = data
+            const response = await apiSignIn(payload)
+            if (response.success) {
+                toast.success(response.mes)
+                setModal(false, null)
+            } else toast.error(response.mes)
+        }
+
     }
     return (
         <div
@@ -27,7 +56,7 @@ const Login = () => {
                     onClick={() => setVariant('REGISTER')}
                     className={clsx(variant === 'REGISTER' && 'border-b-2 border-main-700 ', 'cursor-pointer')}>New Account</span>
             </div>
-            <div className='flex flex-col gap-4 px-4'>
+            <div className='flex flex-col gap-2 px-4'>
                 <form>
                     {variant === 'REGISTER' && <InputForm
                         label='Fullname'
@@ -45,8 +74,14 @@ const Login = () => {
                         id='phone'
                         inputClassname='rounded-md'
                         placeholder='Enter your phone number here'
+                        validate={{
+                            required: 'This field must not is empty',
+                            pattern: {
+                                value: /(0[3|5|7|8|9])+([0-9]{8})\b/,
+                                message: 'Phone number invalid'
+                            },
+                        }}
                         errors={errors}
-                        validate={{ required: 'This field must not is empty' }}
                     />
 
                     <InputForm
@@ -59,6 +94,18 @@ const Login = () => {
                         errors={errors}
                         validate={{ required: 'This field must not is empty' }}
                     />
+                    {variant === 'REGISTER' && <InputRadio
+                        label='Type account'
+                        register={register}
+                        id='role'
+                        inputClassname='rounded-md'
+                        errors={errors}
+                        validate={{ required: 'This field must not is empty' }}
+                        options={[
+                            { label: 'User', value: 'USER' },
+                            { label: 'Agent', value: 'AGENT' },
+                        ]}
+                    />}
                 </form>
                 <Button
                     handleOnClick={handleSubmit(onSubmit)}
@@ -66,8 +113,9 @@ const Login = () => {
                     {variant === 'LOGIN' ? 'Sign In' : 'Register'}
                 </Button>
                 <span
-                    className='cursor-pointer text-main-500 hover:underline text-center'
-                >Forgot your password?</span>
+                    className='cursor-pointer text-main-500 hover:underline text-center'>
+                    Forgot your password?
+                </span>
             </div>
         </div>
     )

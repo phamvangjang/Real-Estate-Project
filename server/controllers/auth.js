@@ -14,6 +14,7 @@ const register = asyncHandler(async (req, res) => {
         success: response[1],
         mes: response[1] ? 'Your account is created' : 'Phone number was exists'
     })
+    
 })
 
 const signIn = asyncHandler(async (req, res, next) => {
@@ -28,7 +29,7 @@ const signIn = asyncHandler(async (req, res, next) => {
     const token = jwt.sign({ uid: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '7d' })
     return res.json({
         success: true,
-        mes: 'Sign in is successfully',
+        mes: 'Sign in was successfully',
         accessToken: token
     })
 })

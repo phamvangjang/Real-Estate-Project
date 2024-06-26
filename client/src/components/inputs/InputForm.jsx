@@ -16,7 +16,7 @@ const InputForm = ({
 }) => {
     return (
         <div className={twMerge(
-            clsx('flex flex-col gap-2')
+            clsx('flex flex-col gap-1 w-full', containerClassname)
         )}>
             {label && <label className='font-medium text-main-700' htmlFor={id}>{label}</label>}
             <input

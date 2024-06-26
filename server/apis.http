@@ -4,9 +4,9 @@ Content-Type: application/json
 
 {
     "name": "vangiang",
-    "phone" : "01472583487",
+    "phone" : "0976320547",
     "password": "123456",
-    "role": "USE"
+    "role": "USER"
 }
 
 ### signin
@@ -14,6 +14,6 @@ POST http://localhost:5000/api/auth/signin
 Content-Type: application/json
 
 {
-    "phone" : "0147258369",
+    "phone" : "01472583487",
     "password": "123456"
 }
