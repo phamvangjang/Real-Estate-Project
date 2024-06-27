@@ -9,6 +9,7 @@ import { useAppStore } from '~/store/useAppStore'
 
 const Login = () => {
     const [variant, setVariant] = useState('LOGIN')
+    const [isLoading, setIsLoading] = useState(false)
     const { setModal } = useAppStore()
     const { register, formState: { errors }, handleSubmit, reset } = useForm()
     useEffect(() => {
@@ -16,7 +17,9 @@ const Login = () => {
     }, [variant])
     const onSubmit = async (data) => {
         if (variant === 'REGISTER') {
+            setIsLoading(true)
             const response = await apiRegister(data)
+            setIsLoading(false)
             if (response.success) {
                 Swal.fire({
                     icon: 'success',
