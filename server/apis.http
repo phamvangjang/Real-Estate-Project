@@ -14,6 +14,14 @@ POST http://localhost:5000/api/auth/signin
 Content-Type: application/json
 
 {
-    "phone" : "01472583487",
+    "phone" : "0976320547",
     "password": "123456"
+}
+
+### get current
+GET http://localhost:5000/api/user/current
+Content-Type: application/json
+
+{
+    "uid" : "db86d134-3f2a-4d11-9a7a-1b316d8d1cbe"
 }

@@ -6,11 +6,13 @@ import { apiRegister, apiSignIn } from '~/apis/auth'
 import Swal from 'sweetalert2'
 import { toast } from 'react-toastify'
 import { useAppStore } from '~/store/useAppStore'
+import { useUserStore } from '~/store/useUserStore'
 
 const Login = () => {
     const [variant, setVariant] = useState('LOGIN')
     const [isLoading, setIsLoading] = useState(false)
     const { setModal } = useAppStore()
+    const { token, setToken } = useUserStore()
     const { register, formState: { errors }, handleSubmit, reset } = useForm()
     useEffect(() => {
         reset()
@@ -39,11 +41,12 @@ const Login = () => {
             const response = await apiSignIn(payload)
             if (response.success) {
                 toast.success(response.mes)
+                setToken(response.accessToken)
                 setModal(false, null)
             } else toast.error(response.mes)
         }
-
     }
+    console.log(token)
     return (
         <div
             onClick={e => e.stopPropagation()}

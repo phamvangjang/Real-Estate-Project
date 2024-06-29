@@ -1,16 +1,23 @@
 import { create } from "zustand"
-import { persist, createJSONStogare } from 'zustand/middleware'
-
+import { persist, createJSONStorage } from 'zustand/middleware'
+import { apiGetCurrent } from "~/apis/user"
 
 export const useUserStore = create(
     persist(
         (set, get) => ({
             token: null,
             current: null,
+            setToken: (token) => set(() => ({ token })),
+            getCurrent: async () => {
+                const response = await apiGetCurrent()
+                if (response.success)
+                    console.log(response)
+                    return set(() => ({ current: response.currentUser }))
+            },
         }),
         {
             name: 'rest06',
-            stogare: createJSONStogare(() => localStorage),
+            storage: createJSONStorage(() => localStorage),
             //return object of state, want save
             partialize: (state) =>
                 Object.fromEntries(
